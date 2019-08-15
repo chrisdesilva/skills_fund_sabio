@@ -1,13 +1,13 @@
 import React from "react"
 // add hero image to src > images, update file path below
-import banner from "../images/1425x522.png"
+import banner from "../images/sabiobanner.jpg"
 import Button from "./button"
 
 const Banner = props => (
     <div>
-        <div className="bg-cover text-white flex flex-col justify-center items-center relative z-0 pb-4 h-auto" style={{backgroundImage: `url(${banner})`, height: `30rem`}} id="banner">
+        <div className="bg-cover text-white flex flex-col justify-center items-center relative z-0 pb-4 h-auto" style={{backgroundImage: `url(${banner})`, height: `35rem`}} id="banner">
             {/* update h2 with school-specific content */}
-            <h2 className="text-3xl lg:text-4xl font-normal text-center mb-5 mt-24">SCHOOL-SPECIFIC HEADLINE</h2>
+            <h2 className="text-3xl lg:text-4xl font-normal text-center mb-5 mt-24">Learn to Code at Sabio</h2>
             <h3 className="text-base lg:text-xl font-light text-center">Know exactly what you'll pay with Skills Fund</h3>
             <div className="flex flex-col lg:flex-row">
                 <Button

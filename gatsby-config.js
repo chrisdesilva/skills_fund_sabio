@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Skills Fund`,
     description: `Skills Fund finances students to attend the best coding and data science programs around. We believe in 100% loan transparency, and have aligned all incentives around student success.`,
-    headline: `Partner financing page for Skills Fund and ***SCHOOL NAME***`,
+    headline: `Partner financing page for Skills Fund and Sabio`,
     author: `@Skills_Fund`,
     siteLanguage: `en`,
     logo: `src/images/skillsFund_logo.png`,
@@ -28,7 +28,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-******** UPDATE THIS",
+        trackingId: "UA-68312423-7",
         head: true
       },
     },

@@ -9,12 +9,12 @@ const LoanCalculator = () => {
     const interestRate36 = 8.99
     const interestRate60 = 10.99
     const origFee = 0.04
-    const multiPrograms = false // only true if there are multiple programs
+    const multiPrograms = true // only true if there are multiple programs
     const [interestPayment, setInterestPayment] = useState({ payment36: null, payment60: null })
     const [monthlyPayment, setMonthlyPayment] = useState({ payment36: null, payment60: null })
     const [loanType, setLoanType] = useState('0') // default to 0 for interest-only, 1 for immediate repayment
     const [loanInformation, setLoanInformation] = useState({ 
-        maxLoanAmt: 25500,
+        maxLoanAmt: 19500,
         loanTerm36: true, // only true if 36 month option is available
         loanTerm60: true, // only true if 60 month option is available
         k: 5, // (program length in weeks / 4) + 2 -- round program length down to nearest number divisible by 4 (ie. 27 week program rounds down to 24, 24 / 4 + 6 = 12, k = 12)
@@ -22,10 +22,7 @@ const LoanCalculator = () => {
             apr36: 11.16, 
             apr60: 12.51
         },
-        '1': { // immediate repayment
-            apr36: 11.69,
-            apr60: 12.55
-        } 
+        '1': null 
     })
 
     const updateLoanAmount = e => {
@@ -58,9 +55,9 @@ const LoanCalculator = () => {
     const selectProgram = e => {
         let program = e.target.value
         switch(program) {
-            case "Program 1 Name - Metro 1": // use this info for default case at bottom
+            case "Full-Stack Web Development": // use this info for default case at bottom
                 setLoanInformation({
-                    maxLoanAmt: 25500,
+                    maxLoanAmt: 19500,
                     loanTerm36: true,
                     loanTerm60: true,
                     '0': { 
@@ -72,52 +69,56 @@ const LoanCalculator = () => {
                 })
                 setLoanType('0')
                 break;
-            case "Program 1 Name - Metro 2": 
+            case "AWS Cloud": 
                 setLoanInformation({
-                    maxLoanAmt: 20500,
+                    maxLoanAmt: 10995,
                     loanTerm36: true,
                     loanTerm60: true,
                     '0': { 
-                        k: 6, 
-                        apr36: 11.01, 
-                        apr60: 12.55
-                    },
-                    '1': null
-                })
-                setLoanType('0')
-                break;
-            case "Program 2 Name": 
-                setLoanInformation({
-                    maxLoanAmt: 19500,
-                    loanTerm36: false,
-                    loanTerm60: true,
-                    '0': { 
-                        k: 6, 
-                        apr36: 10.91, 
-                        apr60: 12.55
+                        k: 5, 
+                        apr36: 11.16, 
+                        apr60: 12.51
                     },
                     '1': {
                         apr36: 11.69,
-                        apr60: 12.51
+                        apr60: 12.71
                     }
                 })
                 setLoanType('0')
                 break;
-            case "Program 3 Name":
+            case "Cyber Security": 
                 setLoanInformation({
-                    maxLoanAmt: 15500,
+                    maxLoanAmt: 15000,
                     loanTerm36: true,
-                    loanTerm60: false, 
+                    loanTerm60: true,
                     '0': null,
                     '1': {
-                        apr36: 10.91
+                        apr36: 11.69,
+                        apr60: 12.71
                     }
                 })
-                setLoanType('1') 
+                setLoanType('1')
+                break;
+            case "Part-Time Full-Stack":
+                setLoanInformation({
+                    maxLoanAmt: 13500,
+                    loanTerm36: true,
+                    loanTerm60: true, 
+                    '0': {
+                        k: 8,
+                        apr36: 10.94,
+                        apr60: 12.41
+                    },
+                    '1': {
+                        apr36: 11.69,
+                        apr60: 12.71
+                    }
+                })
+                setLoanType('0')
                 break;
             default: // info below needs to match info from first program
                 setLoanInformation({
-                    maxLoanAmt: 25500,
+                    maxLoanAmt: 19500,
                     loanTerm36: true,
                     loanTerm60: true,
                     '0': { 
@@ -138,17 +139,74 @@ const LoanCalculator = () => {
                 <h3 className="text-center">Calculate Your Monthly Payments</h3>
 
                 {/* UPDATE LOAN AMOUNTS AND COST OF LIVING BY PROGRAM BELOW */}
-                <p>Choose the loan amount that works best for you. Borrow up to $XX,XXX for PROGRAM_NAME tuition and $XX,XXX for cost of living. </p>
+                
+                    <p>Choose the loan amount that works best for you. Borrow up to your metro's max for tuition and cost of living for the Full Stack Web Development programs, up to $9,995 for the AWS Cloud program tuition & $1,000 for cost of living, up to $15,000 for Cyber Security tuition, or up to $13,500 for the Part-Time Full-Stack program tuition.</p>
+                    <div className="flex flex-col items-center">
+                    
+                    {/* WEB TABLE */}
+                    <table className="hidden lg:inline">
+                        <tbody>
+                            <tr>
+                                <th className="text-center">Program</th>
+                                <th className="text-center">Tuition</th>
+                                <th className="text-center">Cost of Living</th>
+                                <th className="text-center">Max Total</th>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Full Stack Web Development - <strong>Irvine</strong></td>
+                                <td className="text-center">$11,500</td>
+                                <td className="text-center">$6,000</td>
+                                <td className="text-center">$17,500</td>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Full Stack Web Development - <strong>Culver City & Downtown LA</strong></td>
+                                <td className="text-center">$13,500</td>
+                                <td className="text-center">$6,000</td>
+                                <td className="text-center">$19,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    {/* MOBILE TABLE */}
+                    <table className="lg:hidden">
+                        <tbody>
+                            <tr>
+                                <th className="text-center">Full-Stack Web Development - Irvine</th>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Tuition: $11,500</td>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Cost of Living: $6,000</td>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Max Total: $17,500</td>
+                            </tr>
+                            <tr>
+                                <th className="text-center">Full-Stack Web Development - Culver City & Downtown LA</th>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Tuition: $13,500</td>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Cost of Living: $6,000</td>
+                            </tr>
+                            <tr>
+                                <td className="text-center">Max Total: $19,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 
                 {/* ADD OR REMOVE PROGRAMS BELOW */}
                 {multiPrograms &&
                     <div className="flex flex-col justify-center w-full md:w-1/3">
                         <label className="text-xs text-center">Select a Program:</label>
                         <select className="rounded border-2 border-primary mb-5 bg-white text-primary text-center" onChange={selectProgram}>
-                            <option value="Program 1 Name - Metro 1">Program 1 Name - Metro 1</option>
-                            <option value="Program 1 Name - Metro 2">Program 1 Name - Metro 2</option>
-                            <option value="Program 2 Name">Program 2 Name</option>
-                            <option value="Program 3 Name">Program 3 Name</option>
+                            <option value="Full Stack Web Development">Full Stack Web Development</option>
+                            <option value="AWS Cloud">AWS Cloud</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                            <option value="Part-Time Full-Stack">Part-Time Full-Stack</option>
                         </select>
                     </div>
                 }

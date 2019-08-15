@@ -3,7 +3,7 @@ import Homepage from '../components/homepage'
 import ReactGA from 'react-ga'
 import ReactPixel from 'react-facebook-pixel'
 
-const trackingId = 'UA-******* UPDATE'
+const trackingId = 'UA-68312423-7'
 ReactGA.initialize(trackingId, {
   debug: true,
   titleCase: false,
@@ -12,7 +12,7 @@ ReactGA.initialize(trackingId, {
   }
 })
 
-const netlifyFormName = 'SCHOOLNAME_contact'
+const netlifyFormName = 'sabio_contact'
 
 const IndexPage = () => {
   

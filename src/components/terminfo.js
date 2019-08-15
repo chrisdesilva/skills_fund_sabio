@@ -8,29 +8,46 @@ const schoolInfo = {
     interestRate36: '8.99%',
     interestRate60: '10.99%',
     interestOnly: {
-        APR36: 'XX.XX%',
-        financeCharge36: '$X,XXX.XX',
-        IOPayment36: '$XX.XX',
-        FullMonthlyPayment36: '$XXX.XX',
-        APR60: 'XX.XX%',
-        financeCharge60: '$X,XXX.XX',
-        IOPayment60: '$XX.XX',
-        FullMonthlyPayment60: '$XXX.XX',
-        LoanExampleAmt: '$XX,XXX',
-        LoanExampleOFeeAmt: '$XXX',
-        LoanExampleAmtPlusOFee: '$XX,XXX',
-        programLength: 'X' // program length in months
+        programName:'Full-Stack Web Development and AWS Cloud',
+        APR36: '11.16%',
+        financeCharge36: '$2,293.64',
+        IOPayment36: '$77.91',
+        FullMonthlyPayment36: '$330.67',
+        APR60: '12.51%',
+        financeCharge60: '$4,040.39',
+        IOPayment60: '$95.25',
+        FullMonthlyPayment60: '$226.07',
+        LoanExampleAmt: '$10,000',
+        LoanExampleOFeeAmt: '$400',
+        LoanExampleAmtPlusOFee: '$10,400',
+        programLength: '3' // program length in months
+    },
+    interestOnly2: {
+        programName:'Part-Time Full-Stack',
+        APR36: '10.94%',
+        financeCharge36: '$2,527.38',
+        IOPayment36: '$77.91',
+        FullMonthlyPayment36: '$330.67',
+        APR60: '12.41%',
+        financeCharge60: '$4,326.13',
+        IOPayment60: '$95.25',
+        FullMonthlyPayment60: '$226.07',
+        LoanExampleAmt: '$10,000',
+        LoanExampleOFeeAmt: '$400',
+        LoanExampleAmtPlusOFee: '$10,400',
+        programLength: '6' // program length in months
     },
     immediateRepayment: { // set values to empty strings if no IR option is available
-        APR36: 'XX.XX%',
-        financeCharge36: '$X,XXX.XX',
-        FullMonthlyPayment36: '$XXX.XX',
-        APR60: 'XX.XX%',
-        financeCharge60: '$X,XXX.XX',
-        FullMonthlyPayment60: '$XXX.XX',
-        LoanExampleAmt: '$XX,XXX',
-        LoanExampleOFeeAmt: '$XXX',
-        LoanExampleAmtPlusOFee: '$XX,XXX',
+        programName: 'Cyber Security, Part-Time Full-Stack, and AWS Cloud',
+        APR36: '11.69%',
+        financeCharge36: '$1,904.08',
+        FullMonthlyPayment36: '$330.67',
+        APR60: '12.71%',
+        financeCharge60: '$3,564.16',
+        FullMonthlyPayment60: '$226.07',
+        LoanExampleAmt: '$10,000',
+        LoanExampleOFeeAmt: '$400',
+        LoanExampleAmtPlusOFee: '$10,400',
     }
 }
 const multipleLoanLengths = true // true if both 36 and 60 month options are available
@@ -51,7 +68,8 @@ const TermInfo = () => (
                 IRAPR60={schoolInfo.immediateRepayment.APR60}
             />
 
-            <InterestOnlyTerms 
+            <InterestOnlyTerms
+                programName={schoolInfo.interestOnly.programName} 
                 loanExampleAmt={schoolInfo.interestOnly.LoanExampleAmt}
                 APR36={schoolInfo.interestOnly.APR36}
                 APR60={schoolInfo.interestOnly.APR60}
@@ -67,8 +85,26 @@ const TermInfo = () => (
                 multipleLoanLengths={multipleLoanLengths}
             />
 
+            <InterestOnlyTerms
+                programName={schoolInfo.interestOnly2.programName} 
+                loanExampleAmt={schoolInfo.interestOnly2.LoanExampleAmt}
+                APR36={schoolInfo.interestOnly2.APR36}
+                APR60={schoolInfo.interestOnly2.APR60}
+                finCharge36={schoolInfo.interestOnly2.financeCharge36}
+                finCharge60={schoolInfo.interestOnly2.financeCharge60}
+                ioPayment36={schoolInfo.interestOnly2.IOPayment36}
+                ioPayment60={schoolInfo.interestOnly2.IOPayment60}
+                fullPayment36={schoolInfo.interestOnly2.FullMonthlyPayment36}
+                fullPayment60={schoolInfo.interestOnly2.FullMonthlyPayment60}
+                oFee={schoolInfo.interestOnly2.LoanExampleOFeeAmt}
+                loanPlusOFee={schoolInfo.interestOnly2.LoanExampleAmtPlusOFee}
+                programLength={schoolInfo.interestOnly2.programLength}
+                multipleLoanLengths={multipleLoanLengths}
+            />
+
             {multipleLoanTypes && 
-                <ImmRepaymentTerms 
+                <ImmRepaymentTerms
+                    programName={schoolInfo.immediateRepayment.programName} 
                     loanExampleAmt={schoolInfo.immediateRepayment.LoanExampleAmt}
                     APR36={schoolInfo.immediateRepayment.APR36}
                     APR60={schoolInfo.immediateRepayment.APR60}

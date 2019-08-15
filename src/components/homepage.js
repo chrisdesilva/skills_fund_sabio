@@ -95,7 +95,7 @@ class Homepage extends React.Component {
           <Layout>
 
             {/* UPDATE SCHOOL NAME */}
-            <SEO title='SCHOOL NAME' />
+            <SEO title='Sabio' />
 
             <Banner 
                 howItWorksOnClick={this.scrollToContent}  
@@ -104,7 +104,7 @@ class Homepage extends React.Component {
 
             {/* UPDATE SCHOOL NAME */}
             <LeadContent 
-              schoolName='SCHOOL NAME'
+              schoolName='Sabio'
             />
             <ThreeSteps
               onClick={this.scrollToApply2} 

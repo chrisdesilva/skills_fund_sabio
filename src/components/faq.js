@@ -1,50 +1,54 @@
 import React from 'react'
 
-// update with school-specific info
-const schoolInfo = {
-     schoolName: 'SCHOOL NAME',
-     programName: 'PROGRAM NAME',
-     minLoanAmt: '$2,000',
-     maxLoanAmt: 'MAX TUITION LOAN AMT',
-     costOfLiving: true,
-     costOfLivingAmt: 'COST OF LIVING AMT',
-     interestRate36: 'X.XX%',
-     APR36: 'XX.XX%',
-     IOPayment36: '$XX.XX',
-     interestRate60: 'XX.XX%',
-     APR60: 'XX.XX%',
-     IOPayment60: '$XX.XX'
-}
+const costOfLiving = true // true if at least one program has cost of living included
+const interestOnly = true // true if interest-only payments are an option
+const immediateRepayment = true // true if immediate repayment is an option
+const multipleLoanLengths = true // true if 36 and 60 month options are both available
+const interestRate36 = '8.99%'
+const interestRate60 = '10.99%'
+const APR36 = '11.16% - 11.69%'
+const APR60 = '12.51% - 12.71%'
+const IOPayment36 = '$77.91'
+const IOPayment60 = '$95.25'
 
+// update with school-specific info
 const FAQ = () => (
     <div className="border-2 border-gray-300 shadow-xl rounded-lg m-2 lg:m-10 p-8">
        <h2 className="mt-4 text-center">Frequently Asked Questions</h2>
        <h3 className="uppercase text-secondary">how much can i borrow and for what specific uses?</h3>
-            <p><strong>For the {schoolInfo.schoolName} program,</strong> you may borrow from {schoolInfo.minLoanAmt} to {schoolInfo.maxLoanAmt} for tuition. You may also borrow up to {schoolInfo.costOfLivingAmt} for cost of living.</p>
-            <p><strong>Please note:</strong> In order to finance cost of living, borrow at least {schoolInfo.minLoanAmt} in tuition financing. You will pay your cash deposit directly to <strong>{schoolInfo.schoolName}.</strong></p>
+          <ul>
+            <li><strong>For the Full-Stack Web Development (Irvine) program,</strong> you may borrow from $2,000 to $11,500 for tuition. You may also borrow up to $6,000 for cost of living.</li>
+            <li><strong>For the Full-Stack Web Development (Culver City & Downtown LA) program,</strong> you may borrow from $2,000 to $13,500 tuition. You may also borrow up to $6,000 for cost of living.</li>
+            <li><strong>For the Cyber Security program,</strong> you may borrow from $2,000 to $15,000 for tuition. Cost of living is not available for this program.</li>
+            <li><strong>For the AWS Cloud program,</strong> you may borrow from $2,000 to $9,995 for tuition. You may also borrow up to $1,000 for cost of living.</li>
+            <li><strong>For the Part-Time Full-Stack program,</strong> you may borrow from $2,000 to $13,500 for tuition. Cost of living is not available for this program.</li>
+            <li><strong>Please note:</strong> In order to finance cost of living, borrow at least $2,000 in tuition financing. You will pay your cash deposit directly to <strong>Sabio.</strong></li>
+          </ul>
      
-       {schoolInfo.costOfLiving &&
+       {costOfLiving &&
        <div> 
        <h3 className="uppercase text-secondary">when will i receive my living stipend?</h3>
+            <p><strong>Only the Full-Stack Web Development and AWS Cloud programs are eligible for cost of living.</strong></p>
             <p>Your lump sum living stipend will be sent to you on the second Wednesday after your program start. You can elect to have your cost of living disbursed via electronic funds transfer or mailed directly to the address provided in their loan application.</p>
             <p>Please allow 1 - 5 business days for your electronic funds transfer to be reflected in your bank account. For all students who elect to have funds mailed to their address, please allow 5 - 10 business days for your check to arrive via U.S. Standard Mail.</p>
        </div>
        }
        <h3 className="uppercase text-secondary">how and when will i repay my loan?</h3>
             <p>Upon loan acceptance, we will provide you with several options for making payments, including automated payments. You may create an account at <a href="https://www.aspireservicingcenter.com/" target="_blank" rel="noreferrer noopener" className="text-primary">AspireServicingCenter.com</a> at any time to manage payments and account balance.</p>
-            <p>You will start paying interest on your loan roughly one month after your loan is disbursed to the school. Disbursement occurs on the second Wednesday after program start. You will make interest-only payments while in program and for 60 days following program completion.</p>
-            <p>You will start making full monthly payments (interest plus principal) after your two-month grace period ends. This 60-day payment grace period helps you to keep your eye on finding the right job following program completion.</p>
+            {interestOnly && <p><strong>Interest-Only Loans:</strong>You will start paying interest on your loan roughly one month after your loan is disbursed to the school. Disbursement occurs on the second Wednesday after program start. You will make interest-only payments while in program and for 60 days following program completion.</p>}
+            {interestOnly && <p>You will start making full monthly payments (interest plus principal) after your two-month grace period ends. This 60-day payment grace period helps you to keep your eye on finding the right job following program completion.</p>}
+            {immediateRepayment && <p><strong>Immediate Repayment Loans: </strong>You will start making full monthly payments (interest plus principal) roughly one month after your loan is disbursed to your school. Disbursement occurs on the second Wednesday after program start.</p>}
             <p>There is no prepayment penalty with a Skills Fund loan.</p>
        
        <h3 className="uppercase text-secondary">what is the deferment period?</h3>
             <p>The deferment period is defined as the time you are attending the course, plus an additional two months after program completion. These additional two months are considered your grace period.</p>
-            <p>Interest-only payments are required during the deferment period. After the deferment period ends, payments of interest and principal are required. Paying interest on your loan during the deferment period will result in lower interest + principal payments during the full loan repayment phase of 36 or 60 months.</p>
+            {interestOnly && <p><strong>Interest-Only Loans: </strong>Interest-only payments are required during the deferment period. After the deferment period ends, payments of interest and principal are required. Paying interest on your loan during the deferment period will result in lower interest + principal payments during the full loan repayment phase of 36{multipleLoanLengths && <span> or 60</span>} months.</p>}
+            {immediateRepayment && <p><strong>Immediate Repayment Loans: </strong>These loans have no deferment period. You will start making full monthly payments (interest plus principal) roughly one month after your loan is disbursed to your school. Disbursement occurs on the second Wednesday after program start.</p>}
        
        <h3 className="uppercase text-secondary">how much are interest payments during the deferment period?</h3>
             <p>The interest-only payments depend on how much you borrow; the less you borrow, the less you will pay.</p>
-            <p><strong>For a 36-month $10,000 loan:</strong> The interest rate is fixed at {schoolInfo.interestRate36} / {schoolInfo.APR36} estimated APR. The interest-only monthly payment is approximately {schoolInfo.IOPayment36}.</p>
-            <p><strong>For a 60-month $10,000 loan:</strong> The interest rate is fixed at {schoolInfo.interestRate60} / {schoolInfo.APR60} estimated APR. The interest-only monthly payment is approximately {schoolInfo
-          .IOPayment60}.</p>
+            <p><strong>For a 36-month $10,000 loan:</strong> The interest rate is fixed at {interestRate36} / {APR36} estimated APR. The interest-only monthly payment is approximately {IOPayment36}.</p>
+            {multipleLoanLengths && <p><strong>For a 60-month $10,000 loan:</strong> The interest rate is fixed at {interestRate60} / {APR60} estimated APR. The interest-only monthly payment is approximately {IOPayment60}.</p>}
             <p>Please see terms in "More Info On Terms" above.</p>
             <p><strong>Please note:</strong> The Annual Percentage Rate (APR) is estimated and may change slightly based on the loan type, origination fee, and approximate program length. To learn how an Annual Percentage Rate (APR) is calculated, <a className="text-primary" target="_blank" href="https://skills.fund/resources/how-is-an-apr-calculated" rel="noreferrer noopener">visit our blog.</a></p>
        

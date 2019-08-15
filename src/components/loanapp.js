@@ -9,17 +9,19 @@ const LoanApp = React.forwardRef((props, ref) => {
     const [IP, setIP] = useState('')
     const [disclaimers, toggleDisclaimers] = useState(false)
     const [programInfo, setProgramInfo] = useState({
-        programName: 'PROGRAM NAME',
+        programName: 'Full-Stack .NET Bootcamp',
         active: { 
             program1: false,
             program2: false,
-            program3: false
+            program3: false,
+            program4: false,
+            program5: false
         }
     })
-    const [loanUrl, setLoanUrl] = useState(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=INSERT_MARKET_SEGMENT_CODE`) // if multiple programs, set lenderCode to first program option
-    const formID = 'HUBSPOT_FORM_ID' // get form id for apply now
-    const schoolName = 'SCHOOL NAME'
-    const pageUri = 'SCHOOLNAME.skills.fund' // partner page uri
+    const [loanUrl, setLoanUrl] = useState(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SFSB17`) // if multiple programs, set lenderCode to first program option
+    const formID = 'e1542269-24ce-4177-acf4-a12111accd8d' // get form id for apply now
+    const schoolName = 'Sabio'
+    const pageUri = 'sabio.skills.fund' // partner page uri
     const costOfLiving = true // set to false of cost of living is not available
     const multiplePrograms = true // set to false if there is only one program
     const onlinePrograms = false // set to true if there is at least one online/remote program offered
@@ -38,47 +40,81 @@ const LoanApp = React.forwardRef((props, ref) => {
         switch(programNumber) {
             case 1: // info should match default
                 setProgramInfo({
-                    programName: 'HS_INTERNAL_VALUE_PROGRAM_1', 
+                    programName: 'Full-Stack .NET Bootcamp', 
                     active: {
                         program1: !programInfo.active.program1, 
                         program2: false, 
-                        program3: false
+                        program3: false,
+                        program4: false,
+                        program5: false,
                     }
                 })
-                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=INSERT_MARKET_SEGMENT_CODE`) // update lenderCode with market segment code from LP
+                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SFSB17`) // update lenderCode with market segment code from LP
                 break;
             case 2:
                 setProgramInfo({
-                    programName: 'HS_INTERNAL_VALUE_PROGRAM_2', 
+                    programName: 'Full-Stack NodeJS Bootcamp', 
                     active: {
                         program1: false, 
                         program2: !programInfo.active.program2, 
-                        program3: false
+                        program3: false,
+                        program4: false,
+                        program5: false,
                     }
                 })
-                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=INSERT_MARKET_SEGMENT_CODE`) // update lenderCode with market segment code from LP
+                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SKSBNODE17`) // update lenderCode with market segment code from LP
                 break;
             case 3:
                 setProgramInfo({
-                    programName: 'HS_INTERNAL_VALUE_PROGRAM_3', 
+                    programName: 'Cyber Security', 
                     active: {
                         program1: false, 
                         program2: false, 
-                        program3: !programInfo.active.program3
+                        program3: !programInfo.active.program3,
+                        program4: false,
+                        program5: false
                     }
                 })
-                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=INSERT_MARKET_SEGMENT_CODE`) // update lenderCode with market segment code from LP
+                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SKSABCS18`) // update lenderCode with market segment code from LP
+                break;
+            case 4:
+                setProgramInfo({
+                    programName: 'AWS Cloud', 
+                    active: {
+                        program1: false, 
+                        program2: false, 
+                        program3: false,
+                        program4: !programInfo.active.program4,
+                        program5: false,
+                    }
+                })
+                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SKSAAWS19`) // update lenderCode with market segment code from LP
+                break;
+            case 5:
+                setProgramInfo({
+                    programName: 'Part-Time Full-Stack', 
+                    active: {
+                        program1: false, 
+                        program2: false, 
+                        program3: false,
+                        program4: false,
+                        program5: !programInfo.active.program5,
+                    }
+                })
+                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SKSABPT19`) // update lenderCode with market segment code from LP
                 break;
             default: // info should match case 1
                 setProgramInfo({ 
-                    programName: 'HS_INTERNAL_VALUE_PROGRAM_1', 
+                    programName: 'Full-Stack .NET Bootcamp', 
                     active: {
                         program1: !programInfo.active.program1, 
                         program2: false, 
-                        program3: false
+                        program3: false,
+                        program4: false,
+                        program5: false
                     }
                 })
-                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=INSERT_MARKET_SEGMENT_CODE`)
+                setLoanUrl(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SFSB17`)
                 break;
         }
     }
@@ -180,21 +216,22 @@ const LoanApp = React.forwardRef((props, ref) => {
 
     return (
         <div ref={ref} className="flex flex-col items-center justify-center py-8 mx-2 lg:mx-10 rounded shadow-xl">
-            {/* update with school name, remove cost of living if school does not offer it */}
             <h3 className="text-center">Apply for {schoolName} Tuition{costOfLiving && <span> and Cost of Living Funding</span>}</h3>
             <div className="flex justify-center">
                 <img className="w-auto" src={marching} alt="People marching and carrying flags" />
             </div>
             {/* update form fields as necessary */}
-            <form className="SCHOOL NAME_apply_now program-apply flex flex-col items-center" onSubmit={handleSubmit}>
+            <form className="sabio_apply_now program-apply flex flex-col items-center" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email address</label>
                 <input className="applyNowInput" type="email" name="email" placeholder="Enter your email address" onChange={handleChange} value={email} required />
                 {multiplePrograms && 
                     <div className="w-1/2">
                         <p className="text-center">Select a {schoolName} program</p>
-                        <p className={programInfo.active.program1 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(1)}>PROGRAM 1</p>
-                        <p className={programInfo.active.program2 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(2)}>PROGRAM 2</p>
-                        <p className={programInfo.active.program3 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(3)}>PROGRAM 3</p>
+                        <p className={programInfo.active.program1 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(1)}>Full-Stack .NET</p>
+                        <p className={programInfo.active.program2 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(2)}>Full-Stack Node</p>
+                        <p className={programInfo.active.program3 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(3)}>Cyber Security</p>
+                        <p className={programInfo.active.program4 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(4)}>AWS Cloud</p>
+                        <p className={programInfo.active.program5 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(5)}>Part-Time Full-Stack</p>
                     </div>
                 }
                 <div className="hidden">
