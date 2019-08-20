@@ -65,7 +65,7 @@
 
 /* APPLY NOW BUTTON */
 .loanAppSubmitBtn {
-  background-color: rgb(246, 134, 14);
+  background-color: #9d1996;
   border-radius: 9999px;
   padding: .75rem;
   color: white;
@@ -86,7 +86,7 @@
 }
 
 #loanAppSubmitBtn {
-  background-color: rgb(246, 134, 14);
+  background-color: #9d1996;
   border-radius: 9999px;
   padding: .75rem;
   color: white;

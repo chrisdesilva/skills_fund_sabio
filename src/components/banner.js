@@ -17,7 +17,7 @@ const Banner = props => (
                     onClick={props.howItWorksOnClick}
                 />
                 <Button
-                    buttonClassName="uppercase bg-tertiary p-3 lg:mb-0 lg:ml-4 w-40 rounded-full shadow-lg text-white"
+                    buttonClassName="uppercase bg-primary p-3 lg:mb-0 lg:ml-4 w-40 rounded-full shadow-lg text-white"
                     divClassName="flex justify-center mt-5"
                     text="apply now"
                     onClick={props.applyNowOnClick}

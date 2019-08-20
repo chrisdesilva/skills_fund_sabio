@@ -53,6 +53,15 @@ class Homepage extends React.Component {
           label: 'getting started'
         })
       }
+
+      scrollToApply3 = () => {
+        this.apply.current.scrollIntoView({ behavior: 'smooth' });
+        ReactGA.event({
+          category: 'Apply Now Button',
+          action: 'click',
+          label: 'footer'
+        })
+      }
     
       activateMoreInfo = () => {
         this.setState({
@@ -101,11 +110,7 @@ class Homepage extends React.Component {
                 howItWorksOnClick={this.scrollToContent}  
                 applyNowOnClick={this.scrollToApply}  
             />
-
-            {/* UPDATE SCHOOL NAME */}
-            <LeadContent 
-              schoolName='Sabio'
-            />
+            <LeadContent />
             <ThreeSteps
               onClick={this.scrollToApply2} 
               ref={this.threesteps}
@@ -125,6 +130,9 @@ class Homepage extends React.Component {
             {this.state.faq && <FAQ />}
             {this.state.eligibility && <Eligibility />}
             {this.state.contact && <ContactForm formName={this.props.formName}/>}
+            <ApplyFooter
+              onClick={this.scrollToApply3}
+            />
           </Layout>
         )
       }

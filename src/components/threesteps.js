@@ -19,13 +19,7 @@ const ThreeSteps = React.forwardRef((props, ref) => {
                 <div className="flex flex-col items-center mx-2 lg:w-1/3 px-12 lg:px-0">
                     <p className="rounded-full h-10 w-10 flex items-center justify-center border border-secondary">2</p>
                     <h3 className="uppercase mb-2">select your program</h3>
-                        <ul>
-                            <li className="m-0">Full-Stack .NET</li>
-                            <li className="m-0">Full-Stack Node</li>
-                            <li className="m-0">Cyber Security</li>
-                            <li className="m-0">AWS Cloud</li>
-                            <li className="m-0">Part-Time Full-Stack</li>
-                        </ul>
+                    <p>Choose between the Full-Stack .NET, Full-Stack NodeJS, Cyber Security, AWS Cloud, and Part-Time Full-Stack programs.</p>
                 </div>
                 {/* ^^^ Update this section as needed ^^^ */}
 
@@ -34,7 +28,7 @@ const ThreeSteps = React.forwardRef((props, ref) => {
                     <h3 className="uppercase mb-2">apply for funding!</h3>
                     <p className="m-0">You'll be on your way to an exciting career in tech as part of {schoolName}'s powerful network.</p>
                     <Button
-                        buttonClassName="uppercase bg-tertiary p-3 rounded-full shadow-lg text-white"
+                        buttonClassName="uppercase bg-primary p-3 rounded-full shadow-lg text-white"
                         divClassName="flex justify-center mt-5"
                         text="apply now"
                         onClick={props.onClick}
