@@ -12,7 +12,7 @@ const ThreeSteps = React.forwardRef((props, ref) => {
                 <div className="flex flex-col items-center mx-2 lg:w-1/2 px-12">
                     <p className="rounded-full h-10 w-10 flex items-center justify-center border border-secondary">1</p>
                     <h3 className="uppercase mb-2">explore your options</h3>
-                    <p>Use the loan calculator below to know exactly what you'll pay <strong>before</strong> you apply. You can borrow up to the full tuition amount {costOfLiving && <span>plus the cost of living stipend</span>} for your progam.</p>
+                    <p>Use the loan calculator below to know exactly what you'll pay <strong>before</strong> you apply. You can borrow up to the full tuition{costOfLiving && <span> and cost of living max</span>} for your progam.</p>
                 </div>
 
                 {/* vvv Update this section as needed vvv */}
