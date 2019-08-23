@@ -11,13 +11,9 @@ const schoolInfo = {
 }
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div className="flex justify-center">
-      <div className="w-full md:w-1/2 lg:w-1/3 flex justify-around items-center py-2 px-2 lg:px-0 mt-6 mb-2">
+  <header>
+    <div className="flex justify-center my-4">
+      <div className="w-full flex justify-around items-center py-2 px-2 lg:px-0">
           <a
             href={schoolInfo.schoolUrl}
             target="_blank"
@@ -30,6 +26,7 @@ const Header = ({ siteTitle }) => (
               loading="lazy"
             />
           </a>
+          <h3 className="font-light mb-0 hidden lg:block">{schoolInfo.schoolName} tuition made easy</h3>
           <a
             href="https://skills.fund/"
             target="_blank"
@@ -43,9 +40,6 @@ const Header = ({ siteTitle }) => (
             />
           </a>
       </div>
-    </div>
-    <div className="flex justify-center items-center text-center">
-      <h3 className="font-light mb-0">{schoolInfo.schoolName} tuition made easy</h3>
     </div>
   </header>
 )
