@@ -10,9 +10,9 @@ const InterestOnlyTerms = props => (
             <table>
                 <tbody>
                     <tr>
-                        <th className="bg-secondary text-center text-white w-1/3">Example on a {props.loanExampleAmt} loan</th>
-                        <th className="bg-secondary text-center text-white w-1/3" colSpan={!props.multipleLoanLengths && "2"}>36 Month</th>
-                        {props.multipleLoanLengths && <th className="bg-secondary text-center text-white w-1/3">60 Month</th>}
+                        <th className="bg-primary text-center text-white w-1/3">Example on a {props.loanExampleAmt} loan</th>
+                        <th className="bg-primary text-center text-white w-1/3" colSpan={!props.multipleLoanLengths && "2"}>36 Month</th>
+                        {props.multipleLoanLengths && <th className="bg-primary text-center text-white w-1/3">60 Month</th>}
                     </tr>
                     <tr>
                         <td className="text-center">Annual Percentage Rate</td>
@@ -58,7 +58,7 @@ const InterestOnlyTerms = props => (
                         <th className="bg-black text-center text-white">Example on a {props.loanExampleAmt} loan</th>
                     </tr>
                     <tr>
-                        <th className="bg-secondary text-center text-white">36 Month Loan</th>
+                        <th className="bg-primary text-center text-white">36 Month Loan</th>
                     </tr>
                     <tr>
                         <td className="text-center font-bold bg-gray-100">Annual Percentage Rate</td>
@@ -87,7 +87,7 @@ const InterestOnlyTerms = props => (
                     {props.multipleLoanLengths && 
                     <div>
                     <tr>
-                        <th className="bg-secondary text-center text-white">60 Month Loan</th>
+                        <th className="bg-primary text-center text-white">60 Month Loan</th>
                     </tr>
                     <tr>
                         <td className="text-center font-bold bg-gray-100">Annual Percentage Rate</td>    

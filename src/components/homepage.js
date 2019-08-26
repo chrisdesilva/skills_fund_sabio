@@ -13,28 +13,20 @@ import Eligibility from './eligibility'
 import ContactForm from './contactform'
 import LoanApp from './loanapp'
 import LeadCaptureForm from './leadcaptureform'
-import ApplyFooter from './applyfooter'
+import ApplyFooter from './applyFooter';
 
 
 class Homepage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          termInfo: true,
+          termInfo: false,
           faq: false,
           eligibility: false,
           contact: false
         }
         this.threesteps = React.createRef();
         this.apply = React.createRef();
-      }
-    
-      scrollToContent = () => {
-        this.threesteps.current.scrollIntoView({ behavior: 'smooth' });
-        ReactGA.event({
-          category: 'How It Works Button',
-          action: 'click'
-        })
       }
 
       scrollToApply = () => {
@@ -66,7 +58,7 @@ class Homepage extends React.Component {
     
       activateMoreInfo = () => {
         this.setState({
-          termInfo: true,
+          termInfo: !this.state.termInfo,
           faq: false,
           eligibility: false,
           contact: false
@@ -76,7 +68,7 @@ class Homepage extends React.Component {
       activateFAQ = () => {
         this.setState({
           termInfo: false,
-          faq: true,
+          faq: !this.state.faq,
           eligibility: false,
           contact: false
         })
@@ -86,7 +78,7 @@ class Homepage extends React.Component {
         this.setState({
           termInfo: false,
           faq: false,
-          eligibility: true,
+          eligibility: !this.state.eligibility,
           contact: false
         })
       }
@@ -96,17 +88,14 @@ class Homepage extends React.Component {
           termInfo: false,
           faq: false,
           eligibility: false,
-          contact: true
+          contact: !this.state.contact
         })
       }
     
       render(){
         return (
           <Layout>
-
-            {/* UPDATE SCHOOL NAME */}
-            <SEO title='Sabio' />
-
+            <SEO title={this.props.schoolName} />
             <Banner 
                 howItWorksOnClick={this.scrollToContent}  
                 applyNowOnClick={this.scrollToApply}  
@@ -119,8 +108,15 @@ class Homepage extends React.Component {
             <LoanCalculator />
             <LoanApp 
               ref={this.apply}
+              IP={this.props.IP}
+              pageUri={this.props.pageUri}
+              schoolName={this.props.schoolName}
             />
-            <LeadCaptureForm />
+            <LeadCaptureForm 
+              IP={this.props.IP}
+              pageUri={this.props.pageUri}
+              schoolName={this.props.schoolName}
+            />
             <InfoButtonContainer 
               info={this.activateMoreInfo}
               faq={this.activateFAQ}

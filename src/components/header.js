@@ -12,7 +12,7 @@ const schoolInfo = {
 
 const Header = ({ siteTitle }) => (
   <header>
-    <div className="flex justify-center my-4">
+    <div className="flex justify-center shadow-lg">
       <div className="w-full flex justify-around items-center py-2 px-2 lg:px-0">
           <a
             href={schoolInfo.schoolUrl}
@@ -22,8 +22,9 @@ const Header = ({ siteTitle }) => (
             <img
               src={schoolLogo} 
               alt={schoolInfo.schoolName}
-              className="h-8"
+              className="h-10"
               loading="lazy"
+              id="schoolLogo"
             />
           </a>
           <h3 className="font-light mb-0 hidden lg:block">{schoolInfo.schoolName} tuition made easy</h3>
@@ -37,6 +38,7 @@ const Header = ({ siteTitle }) => (
               alt="Skills Fund logo"
               className="h-8"
               loading="lazy"
+              id="skfLogo"
             />
           </a>
       </div>

@@ -9,9 +9,9 @@ const GeneralTerms = props => (
             <table>
                 <tbody>
                     <tr>
-                        <th className="bg-secondary text-center text-white">Skills Fund Loan</th>
-                        <th className="bg-secondary text-center text-white" colSpan={!props.multipleLoanLengths && "2"}>36 Month</th>
-                        {props.multipleLoanLengths && <th className="bg-secondary text-center text-white">60 Month</th>}
+                        <th className="bg-primary text-center text-white">Skills Fund Loan</th>
+                        <th className="bg-primary text-center text-white" colSpan={!props.multipleLoanLengths && "2"}>36 Month</th>
+                        {props.multipleLoanLengths && <th className="bg-primary text-center text-white">60 Month</th>}
                     </tr>
                     <tr>
                         <td className="text-center">Cosigners</td>
@@ -62,7 +62,7 @@ const GeneralTerms = props => (
             <table>
                 <tbody>
                     <tr>
-                        <th className="bg-secondary text-center text-white">Skills Fund Loan - 36 Months</th>
+                        <th className="bg-primary text-center text-white">Skills Fund Loan - 36 Months</th>
                     </tr>
                     <tr>
                         <td className="text-center font-bold bg-gray-100">Cosigners</td>
@@ -116,7 +116,7 @@ const GeneralTerms = props => (
                     {props.multipleLoanLengths &&
                     <div>
                         <tr>
-                        <th className="bg-secondary text-center text-white">Skills Fund Loan - 60 Months</th>
+                        <th className="bg-primary text-center text-white">Skills Fund Loan - 60 Months</th>
                     </tr>
                     <tr>
                         <td className="text-center font-bold bg-gray-100">Cosigners</td>

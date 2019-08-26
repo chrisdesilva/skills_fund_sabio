@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ReactGA from 'react-ga'
 import ReactPixel from 'react-facebook-pixel'
 import marching from '../images/PeopleMarchColor.png'
@@ -6,7 +6,6 @@ import marching from '../images/PeopleMarchColor.png'
 const LoanApp = React.forwardRef((props, ref) => {
 
     const [email, setEmail] = useState('')
-    const [IP, setIP] = useState('')
     const [disclaimers, toggleDisclaimers] = useState(false)
     const [programInfo, setProgramInfo] = useState({
         programName: 'Full-Stack .NET Bootcamp',
@@ -20,15 +19,13 @@ const LoanApp = React.forwardRef((props, ref) => {
     })
     const [loanUrl, setLoanUrl] = useState(`https://sf.privateloan.studentloan.org/external/LoanApplication.do?lenderCode=SFSB17`) // if multiple programs, set lenderCode to first program option
     const formID = 'e1542269-24ce-4177-acf4-a12111accd8d' // get form id for apply now
-    const schoolName = 'Sabio'
-    const pageUri = 'sabio.skills.fund' // partner page uri
     const costOfLiving = true // set to false of cost of living is not available
     const multiplePrograms = true // set to false if there is only one program
     const onlinePrograms = false // set to true if there is at least one online/remote program offered
     const schoolHQState = 'NY' // two letter abbreviation for school headquarters state
 
-    const activeClass = "cursor-pointer border-2 rounded border-black text-center py-2 text-white bg-primary" // highlights selected option in loan app form
-    const inactiveClass = "cursor-pointer border-2 rounded border-black text-center py-2"
+    const activeClass = "cursor-pointer border-2 rounded border-black text-center py-2 text-white bg-primary mb-2" // highlights selected option in loan app form
+    const inactiveClass = "cursor-pointer border-2 rounded border-black text-center py-2 mb-2"
 
 
     const handleChange = e => {
@@ -138,19 +135,6 @@ const LoanApp = React.forwardRef((props, ref) => {
         })
     }
 
-    // Get IP address from client for Hubspot analytics
-    async function fetchIP() {
-        const res = await fetch("https://ip.nf/me.json")
-        res
-            .json()
-            .then(res => setIP(res.ip.ip))
-            .catch(err => console.log(err))
-    }
-
-    useEffect(() => {
-        fetchIP()
-    })
-
     // submit form data to Hubspot, track Google Analytics event, and redirect user to loan application
     const handleSubmit = e => {
         e.preventDefault();
@@ -180,7 +164,7 @@ const LoanApp = React.forwardRef((props, ref) => {
             },
             {
             "name": "school",
-            "value": `${schoolName}`
+            "value": `${props.schoolName}`
             },
             {
             "name": "student_loan_application_status",
@@ -193,9 +177,9 @@ const LoanApp = React.forwardRef((props, ref) => {
         ],
         "context": {
             "hutk": hsCookie.hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
-            "pageUri": `${pageUri}`,
-            "pageName": `${schoolName} | Skills Fund`,
-            "ipAddress": `${IP}`
+            "pageUri": `${props.pageUri}`,
+            "pageName": `${props.schoolName} | Skills Fund`,
+            "ipAddress": `${props.IP}`
         }
         }
 
@@ -216,7 +200,7 @@ const LoanApp = React.forwardRef((props, ref) => {
 
     return (
         <div ref={ref} className="flex flex-col items-center justify-center py-8 mx-2 lg:mx-10 rounded shadow-xl">
-            <h3 className="text-center">Apply for {schoolName} Tuition{costOfLiving && <span> and Cost of Living Funding</span>}</h3>
+            <h3 className="text-center">Apply for {props.schoolName} Tuition{costOfLiving && <span> and Cost of Living Funding</span>}</h3>
             <div className="flex justify-center">
                 <img className="w-auto" src={marching} alt="People marching and carrying flags" />
             </div>
@@ -226,7 +210,7 @@ const LoanApp = React.forwardRef((props, ref) => {
                 <input className="applyNowInput" type="email" name="email" placeholder="Enter your email address" onChange={handleChange} value={email} required />
                 {multiplePrograms && 
                     <div className="w-1/2">
-                        <p className="text-center">Select a {schoolName} program</p>
+                        <p className="text-center">Select a {props.schoolName} program</p>
                         <p className={programInfo.active.program1 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(1)}>Full-Stack .NET</p>
                         <p className={programInfo.active.program2 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(2)}>Full-Stack Node</p>
                         <p className={programInfo.active.program3 ? activeClass : inactiveClass} onClick={() => handleProgramSelect(3)}>Cyber Security</p>
@@ -237,7 +221,7 @@ const LoanApp = React.forwardRef((props, ref) => {
                 <div className="hidden">
                     <input type="text" name="Stakeholder Type" value="Student"/>
                     <input type="text" name="Program Name" value={programInfo.programName}/>
-                    <input type="text" name="School" value={schoolName}/>
+                    <input type="text" name="School" value={props.schoolName}/>
                     <input type="text" name="Student Loan Application Status" value="BLA Click Email Submitted"/>
                     <input type="text" name="Clicked Begin Loan Application BLA" value="BLA Click"/>
                 </div>

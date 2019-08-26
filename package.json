@@ -5,6 +5,9 @@
   "version": "0.1.0",
   "author": "Chris DeSilva <chris.a.desilva@gmail.com>",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "gatsby": "^2.13.9",
     "gatsby-image": "^2.2.4",
     "gatsby-plugin-crazyegg": "^0.0.3",

@@ -3,11 +3,10 @@ import GeneralTerms from './generalterms'
 import InterestOnlyTerms from './interestonlyterms'
 import ImmRepaymentTerms from './immrepaymentterms'
 
-// update with school-specific info
 const schoolInfo = {
     interestRate36: '8.99%',
     interestRate60: '10.99%',
-    interestOnly: {
+    interestOnly: [{
         programName:'Full-Stack Web Development and AWS Cloud',
         APR36: '11.16%',
         financeCharge36: '$2,293.64',
@@ -22,7 +21,7 @@ const schoolInfo = {
         LoanExampleAmtPlusOFee: '$10,400',
         programLength: '3' // program length in months
     },
-    interestOnly2: {
+    {
         programName:'Part-Time Full-Stack',
         APR36: '10.94%',
         financeCharge36: '$2,527.38',
@@ -36,8 +35,8 @@ const schoolInfo = {
         LoanExampleOFeeAmt: '$400',
         LoanExampleAmtPlusOFee: '$10,400',
         programLength: '6' // program length in months
-    },
-    immediateRepayment: { // set values to empty strings if no IR option is available
+    }],
+    immediateRepayment: [{ // set values to empty strings if no IR option is available
         programName: 'Cyber Security, Part-Time Full-Stack, and AWS Cloud',
         APR36: '11.69%',
         financeCharge36: '$1,904.08',
@@ -48,8 +47,9 @@ const schoolInfo = {
         LoanExampleAmt: '$10,000',
         LoanExampleOFeeAmt: '$400',
         LoanExampleAmtPlusOFee: '$10,400',
-    }
+    }]
 }
+
 const multipleLoanLengths = true // true if both 36 and 60 month options are available
 const multipleLoanTypes = true // true if both IR and IO are available
 
@@ -68,55 +68,42 @@ const TermInfo = () => (
                 IRAPR60={schoolInfo.immediateRepayment.APR60}
             />
 
-            <InterestOnlyTerms
-                programName={schoolInfo.interestOnly.programName} 
-                loanExampleAmt={schoolInfo.interestOnly.LoanExampleAmt}
-                APR36={schoolInfo.interestOnly.APR36}
-                APR60={schoolInfo.interestOnly.APR60}
-                finCharge36={schoolInfo.interestOnly.financeCharge36}
-                finCharge60={schoolInfo.interestOnly.financeCharge60}
-                ioPayment36={schoolInfo.interestOnly.IOPayment36}
-                ioPayment60={schoolInfo.interestOnly.IOPayment60}
-                fullPayment36={schoolInfo.interestOnly.FullMonthlyPayment36}
-                fullPayment60={schoolInfo.interestOnly.FullMonthlyPayment60}
-                oFee={schoolInfo.interestOnly.LoanExampleOFeeAmt}
-                loanPlusOFee={schoolInfo.interestOnly.LoanExampleAmtPlusOFee}
-                programLength={schoolInfo.interestOnly.programLength}
+            {schoolInfo.interestOnly.map(school => {
+                return <InterestOnlyTerms
+                programName={school.programName} 
+                loanExampleAmt={school.LoanExampleAmt}
+                APR36={school.APR36}
+                APR60={school.APR60}
+                finCharge36={school.financeCharge36}
+                finCharge60={school.financeCharge60}
+                ioPayment36={school.IOPayment36}
+                ioPayment60={school.IOPayment60}
+                fullPayment36={school.FullMonthlyPayment36}
+                fullPayment60={school.FullMonthlyPayment60}
+                oFee={school.LoanExampleOFeeAmt}
+                loanPlusOFee={school.LoanExampleAmtPlusOFee}
+                programLength={school.programLength}
                 multipleLoanLengths={multipleLoanLengths}
             />
+            })}
 
-            <InterestOnlyTerms
-                programName={schoolInfo.interestOnly2.programName} 
-                loanExampleAmt={schoolInfo.interestOnly2.LoanExampleAmt}
-                APR36={schoolInfo.interestOnly2.APR36}
-                APR60={schoolInfo.interestOnly2.APR60}
-                finCharge36={schoolInfo.interestOnly2.financeCharge36}
-                finCharge60={schoolInfo.interestOnly2.financeCharge60}
-                ioPayment36={schoolInfo.interestOnly2.IOPayment36}
-                ioPayment60={schoolInfo.interestOnly2.IOPayment60}
-                fullPayment36={schoolInfo.interestOnly2.FullMonthlyPayment36}
-                fullPayment60={schoolInfo.interestOnly2.FullMonthlyPayment60}
-                oFee={schoolInfo.interestOnly2.LoanExampleOFeeAmt}
-                loanPlusOFee={schoolInfo.interestOnly2.LoanExampleAmtPlusOFee}
-                programLength={schoolInfo.interestOnly2.programLength}
+            {multipleLoanTypes && schoolInfo.immediateRepayment.map(school => {
+                return <ImmRepaymentTerms
+                programName={school.programName} 
+                loanExampleAmt={school.LoanExampleAmt}
+                APR36={school.APR36}
+                APR60={school.APR60}
+                finCharge36={school.financeCharge36}
+                finCharge60={school.financeCharge60}
+                fullPayment36={school.FullMonthlyPayment36}
+                fullPayment60={school.FullMonthlyPayment60}
+                oFee={school.LoanExampleOFeeAmt}
+                loanPlusOFee={school.LoanExampleAmtPlusOFee}
                 multipleLoanLengths={multipleLoanLengths}
+                multipleLoanTypes={multipleLoanTypes}
             />
+            })
 
-            {multipleLoanTypes && 
-                <ImmRepaymentTerms
-                    programName={schoolInfo.immediateRepayment.programName} 
-                    loanExampleAmt={schoolInfo.immediateRepayment.LoanExampleAmt}
-                    APR36={schoolInfo.immediateRepayment.APR36}
-                    APR60={schoolInfo.immediateRepayment.APR60}
-                    finCharge36={schoolInfo.immediateRepayment.financeCharge36}
-                    finCharge60={schoolInfo.immediateRepayment.financeCharge60}
-                    fullPayment36={schoolInfo.immediateRepayment.FullMonthlyPayment36}
-                    fullPayment60={schoolInfo.immediateRepayment.FullMonthlyPayment60}
-                    oFee={schoolInfo.immediateRepayment.LoanExampleOFeeAmt}
-                    loanPlusOFee={schoolInfo.immediateRepayment.LoanExampleAmtPlusOFee}
-                    multipleLoanLengths={multipleLoanLengths}
-                    multipleLoanTypes={multipleLoanTypes}
-                />
             }
         </div>
     </div>

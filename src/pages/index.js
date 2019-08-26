@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Homepage from '../components/homepage'
 import ReactGA from 'react-ga'
 import ReactPixel from 'react-facebook-pixel'
@@ -15,9 +15,23 @@ ReactGA.initialize(trackingId, {
 const netlifyFormName = 'sabio_contact'
 
 const IndexPage = () => {
-  
+
+  const [IP, setIP] = useState('')
+  const pageUri = 'sabio.skills.fund'
+  const schoolName = 'Sabio'
+
+    // Get IP address from client for Hubspot analytics
+    async function fetchIP() {
+      const res = await fetch("https://ip.nf/me.json")
+      res
+          .json()
+          .then(res => setIP(res.ip.ip))
+          .catch(err => console.log(err))
+    }
+
   useEffect(() => {
     ReactPixel.init('928181257515785');
+    fetchIP();
   })
   
   return (
@@ -34,6 +48,9 @@ const IndexPage = () => {
       </form>
       <Homepage 
         formName={netlifyFormName}
+        IP={IP}
+        pageUri={pageUri}
+        schoolName={schoolName}
       />
     </div>
   )
