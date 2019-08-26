@@ -13,7 +13,7 @@ import Eligibility from './eligibility'
 import ContactForm from './contactform'
 import LoanApp from './loanapp'
 import LeadCaptureForm from './leadcaptureform'
-import ApplyFooter from './applyFooter';
+import ApplyFooter from './applyfooter';
 
 
 class Homepage extends React.Component {
