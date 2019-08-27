@@ -5,7 +5,7 @@ import ReactPixel from 'react-facebook-pixel'
 
 const trackingId = 'UA-68312423-7'
 ReactGA.initialize(trackingId, {
-  debug: true,
+  debug: false,
   titleCase: false,
   gaOptions: {
     siteSpeedSampleRate: 100
