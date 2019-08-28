@@ -51,8 +51,8 @@ class ContactForm extends React.Component {
 
     render() {
         return (
-            <div className="border-2 border-gray-300 shadow-xl rounded-lg m-2 lg:m-10 p-8">
-                <h2 className="mt-4 text-center">Additional Questions</h2>
+            <div className="text-center mx-2 lg:mx-10 p-8 shadow rounded">
+                <h2 className="py-4 text-center">Additional Questions</h2>
                 <p>We're here to help for every step of your journey. Whether you have questions around financing your education, or simply about your loan application, please submit the form below, check out our <a href="https://skills.fund/frequently-asked-questions" target="_blank" rel="noreferrer noopener" className="text-primary">Financing FAQs</a>, or browse the resources on <a href="https://skills.fund/frequently-asked-questions" target="_blank" rel="noreferrer noopener" className="text-primary">our blog</a>. Thank you!</p>
                 <form className="text-center" name={this.props.formName} method="post" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={this.handleSubmit}>
                     <input type="hidden" name="form-name" value={this.props.formName} />

@@ -18,6 +18,7 @@ const Header = ({ siteTitle }) => (
             href={schoolInfo.schoolUrl}
             target="_blank"
             rel="noreferrer noopener"
+            className="w-1/2 lg:w-1/3 flex justify-center"
           >
             <img
               src={schoolLogo} 
@@ -27,11 +28,14 @@ const Header = ({ siteTitle }) => (
               id="schoolLogo"
             />
           </a>
-          <h3 className="font-light mb-0 hidden lg:block">{schoolInfo.schoolName} tuition made easy</h3>
+          <div className="w-1/3 flex justify-center">
+            <h3 className="font-light mb-0 hidden lg:block">{schoolInfo.schoolName} tuition made easy</h3>
+          </div>
           <a
             href="https://skills.fund/"
             target="_blank"
             rel="noreferrer noopener"
+            className="w-1/2 lg:w-1/3 flex justify-center"
           >
             <img
               src={skillsFund} 

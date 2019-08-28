@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ReactGA from 'react-ga'
 import ReactPixel from 'react-facebook-pixel'
 import marching from '../images/PeopleMarchColor.png'
+import { UnmountClosed as Collapse } from 'react-collapse'
 
 const LoanApp = React.forwardRef((props, ref) => {
 
@@ -226,7 +227,7 @@ const LoanApp = React.forwardRef((props, ref) => {
                     <input type="text" name="Clicked Begin Loan Application BLA" value="BLA Click"/>
                 </div>
                 <input className="w-40" value="APPLY NOW" id="loanAppSubmitBtn" type="submit"/>
-                <p className="mt-5 text-xs italic mb-0 px-8 text-center">Please note: clicking Apply Now will open your loan application in a new tab</p>
+                <p className="pt-5 text-xs italic mb-0 px-8 text-center">Please note: clicking Apply Now will open your loan application in a new tab</p>
             </form>
             {onlinePrograms && 
                 <p className="px-8">
@@ -235,8 +236,8 @@ const LoanApp = React.forwardRef((props, ref) => {
             }
             <div className="px-8 text-sm">
                 <p className="text-center">If you are a cosigner, begin the addendum now by clicking <a className="text-primary" href="https://sf.privateloan.studentloan.org/Cosigner.do?execution=e1s1" rel="noreferrer noopener" target="_blank">here</a>.</p>
-                <p className="text-center text-primary cursor-pointer font-bold" onClick={() => toggleDisclaimers(!disclaimers)}>Disclaimers</p>
-                {disclaimers && 
+                <p className="text-center text-primary cursor-pointer font-bold mb-0" onClick={() => toggleDisclaimers(!disclaimers)}>Disclaimers</p>
+                <Collapse isOpened={disclaimers} springConfig={{stiffness: 150, damping: 40}}>
                     <div>
                         <p><strong>Before you begin, please read these important notes:</strong></p>
                         <p>Customer identification policy:</p>
@@ -246,9 +247,9 @@ const LoanApp = React.forwardRef((props, ref) => {
                         <p><strong>While in the application, please note:</strong></p>
                         <p>1. DO NOT use the browser Back button. Using the browser Back button may cause invalid information and delay the processing of your loan.</p>
                         <p>2. Your application will not be complete until it has been signed and submitted along with any required documentation.</p>
-                        <p>3. You will need the address and phone number of 3 references to complete your application, including one relative not living with you. Others may be friends, employers, etc.</p>
+                        <p className="mb-0">3. You will need the address and phone number of 3 references to complete your application, including one relative not living with you. Others may be friends, employers, etc.</p>
                     </div>
-                }
+                </Collapse>
             </div>
         </div>
     )
