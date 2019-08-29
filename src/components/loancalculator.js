@@ -176,13 +176,13 @@ const LoanCalculator = () => {
                 {minLoanAmt > loanAmount || loanAmount > loanInformation.maxLoanAmt ? 
                     <p className="text-red-500 text-xs">Please enter a number between {minLoanAmt} and {loanInformation.maxLoanAmt}</p> 
                         : 
-                    <button className="opacityApply uppercase bg-primary p-3 mb-4 lg:ml-4 w-48 rounded-full shadow-lg text-white" onClick={calculateMonthlyPayment}>Calculate payments</button>    
+                    <button className="opacityApply uppercase bg-primary p-3 mb-4 w-48 rounded-full shadow-lg text-white" onClick={calculateMonthlyPayment}>Calculate payments</button>    
                 }
                 <p className="m-0 text-center">Students may borrow from ${minLoanAmt} to ${loanInformation.maxLoanAmt}</p>
                 {loanType === "0" && <p className="text-xs text-center hidden lg:inline mb-2">Make interest-only payments while in the program. Two months after completion, begin full payments.</p>}
                 {loanType === "1" && <p className="text-xs text-center hidden lg:inline mb-2">Start making full payments (interest + principal) about one month after disbursement.</p>}
                 <Collapse isOpened={loanOptions} springConfig={{stiffness: 150, damping: 40}}>
-                    <div className="shadow-xl rounded px-4 md:px-12 pt-8 flex flex-col lg:flex-row">
+                    <div className="px-4 md:px-12 pt-8 flex flex-col lg:flex-row">
                         
                         {/* OPTION 1, 36 MONTHS */}
                         {loanInformation.loanTerm36 &&
