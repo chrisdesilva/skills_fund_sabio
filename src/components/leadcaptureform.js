@@ -35,6 +35,10 @@ const LeadCaptureForm = props => {
             {
             "name": "stakeholder_type", 
             "value": "Student"
+            },
+            {
+            "name": "school", 
+            "value": "Sabio"
             }
         ],
         "context": {
@@ -72,6 +76,7 @@ const LeadCaptureForm = props => {
                 <div className="hidden">
                     <input type="text" name="Stakeholder Type" value="Student" readOnly/>
                     <input type="text" name="Lead Cycle" value="Lead Capture" readOnly/>
+                    <input type="text" name="School" value="Sabio" readOnly/>
                 </div>
                 {thankYou ? <p className="text-center">Thank you, your guide will be in your inbox soon!</p>: <input className="cursor-pointer opacityApply uppercase bg-primary p-3 w-40 rounded-full shadow-lg text-white" value="Send me the guide!" id="leadCaptureSubmitBtn" type="submit"/>}
             </form>
