@@ -88,7 +88,7 @@ const LoanCalculator = () => {
                 break;
             case "Cyber Security": 
                 setLoanInformation({
-                    maxLoanAmt: 15000,
+                    maxLoanAmt: 21000,
                     loanTerm36: true,
                     loanTerm60: true,
                     '0': null,
@@ -140,7 +140,7 @@ const LoanCalculator = () => {
 
                 {/* UPDATE LOAN AMOUNTS AND COST OF LIVING BY PROGRAM BELOW */}
                 
-                    <p>Choose the loan amount that works best for you. Borrow up to your metro's max for tuition and cost of living for the Full Stack Web Development programs, up to $9,995 for the AWS Cloud program tuition & $1,000 for cost of living, up to $15,000 for Cyber Security tuition, or up to $13,500 for the Part-Time Full-Stack program tuition.</p>
+                    <p>Choose the loan amount that works best for you. Borrow up to your metro's max for tuition and cost of living for the Full Stack Web Development programs, up to $9,995 for the AWS Cloud program tuition & $1,000 for cost of living, up to $15,000 for Cyber Security tuition and up to $6,000 for cost of living, or up to $13,500 for the Part-Time Full-Stack program tuition.</p>
                     <LoanCalcPaymentTable />
                 
                 {/* ADD OR REMOVE PROGRAMS BELOW */}

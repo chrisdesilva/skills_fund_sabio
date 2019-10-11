@@ -40,7 +40,7 @@ const FAQ = () => {
                <ul>
                     <li><strong>For the Full-Stack Web Development (Irvine) program,</strong> you may borrow from $2,000 to $11,500 for tuition. You may also borrow up to $6,000 for cost of living.</li>
                     <li><strong>For the Full-Stack Web Development (Culver City & Downtown LA) program,</strong> you may borrow from $2,000 to $13,500 tuition. You may also borrow up to $6,000 for cost of living.</li>
-                    <li><strong>For the Cyber Security program,</strong> you may borrow from $2,000 to $15,000 for tuition. Cost of living is not available for this program.</li>
+                    <li><strong>For the Cyber Security program,</strong> you may borrow from $2,000 to $15,000 for tuition. You may also borrow up to $6,000 for cost of living.</li>
                     <li><strong>For the AWS Cloud program,</strong> you may borrow from $2,000 to $9,995 for tuition. You may also borrow up to $1,000 for cost of living.</li>
                     <li><strong>For the Part-Time Full-Stack program,</strong> you may borrow from $2,000 to $13,500 for tuition. Cost of living is not available for this program.</li>
                </ul>
