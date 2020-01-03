@@ -7,6 +7,7 @@ const costOfLiving = true // true if at least one program has cost of living inc
 const interestOnly = true // true if interest-only payments are an option
 const immediateRepayment = true // true if immediate repayment is an option
 const multipleLoanLengths = true // true if 36 and 60 month options are both available
+const multipleLoanTypes = true // true if 36 and 60 month options are both available
 
 // interest payment FAQ info
 const interestRate36 = '8.99%'
@@ -63,7 +64,7 @@ const FAQ = () => {
           <Collapse isOpened={q3} springConfig={{stiffness: 150, damping: 30}}>
                     <p>You have several options, including automated payments! After you apply for a loan, we’ll help you set up your repayment account. About one month after your program starts, you’ll make your first loan payment.</p>
                     <p>You’ll make monthly payments until your loan is fully repaid, and we’re happy to say there’s no prepayment penalty or fee for early payments on Skills Fund loans. You can choose to pay the minimum monthly payment, or you can make larger payments. You have the flexibility to pay off your loan anytime before your loan term ends!</p>
-                    {faq.multipleLoanTypes && <>
+                    {multipleLoanTypes && <>
                          <p>Skills Fund offers two repayment options. Check out the loan calculator to decide which repayment option is the best fit for you!</p>
                          <ul>
                               <li className="list-disc"><strong>Interest-only</strong> loans allow you to hold on to more of your savings during your training. You’ll start making low, interest-only payments about one month after your program starts and continue those payments for two months after the program ends. After this interest-only period, you’ll start making full payments (interest + principal).</li>
@@ -71,7 +72,7 @@ const FAQ = () => {
                          </ul>
                     </>
                     }
-                    {!faq.multipleLoanTypes && faq.interestOnly && 
+                    {!multipleLoanTypes && interestOnly && 
                          <p>Skills Fund’s interest-only loans allow you to hold on to more of your savings during your training. You’ll start making low, interest-only payments about one month after your program starts and continue those payments for two months after the program ends. After this interest-only period, you’ll start making full payments (interest + principal).</p>
                     }
                     <p>Aspire and Launch are the loan servicers for Skills Fund’s loans. This means Aspire or Launch will collect your monthly payments during the repayment phase of your loan. All loans applied for <strong>before December 26th, 2019</strong> will be serviced by Aspire. All loans applied for <strong>on or after December 26th, 2019</strong> will be serviced by Launch. </p>
