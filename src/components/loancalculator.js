@@ -1,17 +1,20 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import LoanCalcPaymentTable from "./loancalcpaymenttable"
 import { UnmountClosed as Collapse } from "react-collapse"
+import {
+  defaultLoanAmount,
+  faq,
+  interestRates,
+  paymentTable,
+  placeholder,
+  programLoanInfo,
+  programMaxText,
+} from "../constants/programInfo"
 
 const LoanCalculator = () => {
-  const defaultLoanAmount = 10000 // defaultLoanAmount, placeholder, and loanAmount/setLoanAmount should all be the same number
-  const placeholder = "$10,000"
-  const [loanAmount, setLoanAmount] = useState(10000)
-  const [loanOptions, showLoanOptions] = useState(false)
+  const [loanAmount, setLoanAmount] = useState(defaultLoanAmount)
+  const [loanOptions, showLoanOptions] = useState(false) // used to display 36 and 60 month term options
   const minLoanAmt = 2000
-  const interestRate36 = 8.99
-  const interestRate60 = 10.99
-  const origFee = 0.04
-  const multiPrograms = true // only true if there are multiple programs
   const [interestPayment, setInterestPayment] = useState({
     payment36: null,
     payment60: null,
@@ -20,29 +23,55 @@ const LoanCalculator = () => {
     payment36: null,
     payment60: null,
   })
-  const [loanType, setLoanType] = useState("0") // default to 0 for interest-only, 1 for immediate repayment
-  const [loanInformation, setLoanInformation] = useState({
-    maxLoanAmt: 19500,
-    loanTerm36: true, // only true if 36 month option is available
-    loanTerm60: true, // only true if 60 month option is available
-    k: 5, // (program length in weeks / 4) + 2 -- round program length down to nearest number divisible by 4 (ie. 27 week program rounds down to 24, 24 / 4 + 6 = 12, k = 12)
-    "0": {
-      // interest-only
-      apr36: 11.16,
-      apr60: 12.51,
-    },
-    "1": null,
-  })
+  const [loanType, setLoanType] = useState(
+    programLoanInfo[0]["defaultLoanType"]
+  ) // default to 0 for interest-only, 1 for immediate repayment
+  const [multiMetros, showMetros] = useState(programLoanInfo[0]["showMetros"]) // shows metro dropdown
+  const [loanTypes, showLoanTypes] = useState(
+    programLoanInfo[0]["showLoanTypes"]
+  ) // shows IR/IO dropdown
+  const [metros, setMetros] = useState(programLoanInfo[0]["locations"])
+  const [loanInformation, setLoanInformation] = useState(
+    programLoanInfo[0]["loanInfo"]
+  ) // set initial loan info
+  const [programIndex, setProgramIndex] = useState(0)
+  const [metroIndex, setMetroIndex] = useState(0)
+
+  const selectProgram = e => {
+    let program = e.target.value
+    setProgramIndex(program) // sets index for programLoanInfo object in programInfo.js
+  }
+
+  useEffect(() => {
+    // watches for updates to the programIndex, updates dropdown/loan info accordingly
+    setLoanInformation(programLoanInfo[programIndex]["loanInfo"])
+    setLoanType(programLoanInfo[programIndex]["defaultLoanType"])
+    setMetros(programLoanInfo[programIndex]["locations"])
+    showMetros(programLoanInfo[programIndex]["showMetros"])
+    showLoanTypes(programLoanInfo[programIndex]["showLoanTypes"])
+  }, [programIndex])
+
+  const selectMetro = e => {
+    let metro = e.target.value
+    setMetroIndex(metro) // sets index of selected metro within programLoanInfo[index]['metros]
+  }
+
+  useEffect(() => {
+    // watches for changes to metroIndex, updates dropdown/loan info accordingly
+    setLoanInformation(
+      programLoanInfo[programIndex]["metros"][metroIndex]["loanInfo"]
+    )
+  }, [metroIndex])
 
   const updateLoanAmount = e => {
     setLoanAmount(Number(e.target.value))
   }
 
   const calculateMonthlyPayment = () => {
-    const monthlyRate36 = 8.99 / 100 / 12
-    const monthlyRate60 = 10.99 / 100 / 12
+    const monthlyRate36 = interestRates.ir36 / 100 / 12
+    const monthlyRate60 = interestRates.ir60 / 100 / 12
     const borrowedAmount = loanAmount || defaultLoanAmount
-    const totalLoan = borrowedAmount * (1 + origFee)
+    const totalLoan = borrowedAmount * (1 + faq.origFee)
     let pv = totalLoan
     let payment36 = Number(
       (monthlyRate36 * pv) / (1 - 1 / Math.pow(1 + monthlyRate36, 36))
@@ -58,96 +87,19 @@ const LoanCalculator = () => {
 
   const calculateInterest = () => {
     let interest36 = (
-      ((loanAmount * (1 + origFee)) / 12) *
-      (8.99 / 100)
+      ((loanAmount * (1 + faq.origFee)) / 12) *
+      (interestRates.ir36 / 100)
     ).toFixed(2)
     let interest60 = (
-      ((loanAmount * (1 + origFee)) / 12) *
-      (10.99 / 100)
+      ((loanAmount * (1 + faq.origFee)) / 12) *
+      (interestRates.ir60 / 100)
     ).toFixed(2)
     setInterestPayment({ payment36: interest36, payment60: interest60 })
   }
 
-  const selectProgram = e => {
-    let program = e.target.value
-    switch (program) {
-      case "Full-Stack Web Development": // use this info for default case at bottom
-        setLoanInformation({
-          maxLoanAmt: 19500,
-          loanTerm36: true,
-          loanTerm60: true,
-          "0": {
-            k: 5,
-            apr36: 11.16,
-            apr60: 12.51,
-          },
-          "1": null,
-        })
-        setLoanType("0")
-        break
-      case "AWS Cloud":
-        setLoanInformation({
-          maxLoanAmt: 10995,
-          loanTerm36: true,
-          loanTerm60: true,
-          "0": {
-            k: 5,
-            apr36: 11.16,
-            apr60: 12.51,
-          },
-          "1": {
-            apr36: 11.69,
-            apr60: 12.71,
-          },
-        })
-        setLoanType("0")
-        break
-      case "Cyber Security":
-        setLoanInformation({
-          maxLoanAmt: 21000,
-          loanTerm36: true,
-          loanTerm60: true,
-          "0": null,
-          "1": {
-            apr36: 11.69,
-            apr60: 12.71,
-          },
-        })
-        setLoanType("1")
-        break
-      case "Part-Time Full-Stack":
-        setLoanInformation({
-          maxLoanAmt: 13500,
-          loanTerm36: true,
-          loanTerm60: true,
-          "0": {
-            k: 8,
-            apr36: 10.94,
-            apr60: 12.41,
-          },
-          "1": {
-            apr36: 11.69,
-            apr60: 12.71,
-          },
-        })
-        setLoanType("0")
-        break
-      default:
-        // info below needs to match info from first program
-        setLoanInformation({
-          maxLoanAmt: 19500,
-          loanTerm36: true,
-          loanTerm60: true,
-          "0": {
-            k: 5,
-            apr36: 11.16,
-            apr60: 12.51,
-          },
-          "1": null,
-        })
-        setLoanType("0")
-        break
-    }
+  const calculateUpdatedAmount = () => {
+    showLoanOptions(false)
+    setLoanAmount(defaultLoanAmount)
   }
 
   return (
@@ -156,74 +108,116 @@ const LoanCalculator = () => {
         <h3 className="text-center">Calculate Your Monthly Payments</h3>
 
         {/* UPDATE LOAN AMOUNTS AND COST OF LIVING BY PROGRAM BELOW */}
+        <p className="text-center">{programMaxText}</p>
+        {paymentTable.show && <LoanCalcPaymentTable />}
 
-        <p>
-          Choose the loan amount that works best for you. Borrow up to your
-          metro's max for tuition and cost of living for the Full Stack Web
-          Development programs, up to $9,995 for the AWS Cloud program tuition &
-          $1,000 for cost of living, up to $15,000 for Cyber Security tuition
-          and up to $6,000 for cost of living, or up to $13,500 for the
-          Part-Time Full-Stack program tuition.
-        </p>
-        <LoanCalcPaymentTable />
+        <div className="flex flex-col justify-center w-full md:w-1/3">
+          {/* ADD OR REMOVE PROGRAMS BELOW */}
+          {faq.multiPrograms && (
+            <>
+              <label className="text-xs text-center">Select a Program:</label>
+              <select
+                className="rounded border-2 border-primary mb-5 bg-white text-primary text-center"
+                onChange={selectProgram}
+              >
+                {programLoanInfo.map((program, i) => {
+                  return (
+                    <option key={program.name} value={i}>
+                      {program.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </>
+          )}
 
-        {/* ADD OR REMOVE PROGRAMS BELOW */}
-        {multiPrograms && (
-          <div className="flex flex-col justify-center w-full md:w-1/3">
-            <label className="text-xs text-center">Select a Program:</label>
-            <select
-              className="rounded border-2 border-primary mb-5 bg-white text-primary text-center"
-              onChange={selectProgram}
-            >
-              <option value="Full Stack Web Development">
-                Full Stack Web Development
-              </option>
-              <option value="AWS Cloud">AWS Cloud</option>
-              <option value="Cyber Security">Cyber Security</option>
-              <option value="Part-Time Full-Stack">Part-Time Full-Stack</option>
-            </select>
-          </div>
-        )}
+          {/* ADD OR REMOVE METROS BELOW */}
+          <Collapse
+            isOpened={multiMetros}
+            springConfig={{ stiffness: 150, damping: 30 }}
+          >
+            <div className="flex flex-col">
+              <label className="text-xs text-center">Select a Metro:</label>
+              <select
+                onChange={selectMetro}
+                className="rounded border-2 border-primary mb-5 bg-white text-primary text-center"
+              >
+                {metros.map((city, i) => {
+                  return (
+                    <option key={city} value={i}>
+                      {city}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+          </Collapse>
 
-        {/* DROPDOWN MENU FOR LOAN TYPES */}
-        {loanInformation["0"] && loanInformation["1"] && (
-          <div className="flex flex-col justify-center w-full md:w-1/3">
-            <label className="text-xs text-center">Select a Loan Type:</label>
-            <select
-              className="rounded border-2 border-primary mb-5 bg-white text-primary text-center"
-              onChange={e => setLoanType(e.target.value)}
-            >
-              <option value="0">Interest-Only</option>
-              <option value="1">Immediate Repayment</option>
-            </select>
-          </div>
-        )}
+          {/* DROPDOWN MENU FOR LOAN TYPES */}
+          <Collapse
+            isOpened={loanTypes}
+            springConfig={{ stiffness: 150, damping: 30 }}
+          >
+            <div className="flex flex-col">
+              <label className="text-xs text-center">Select a Loan Type:</label>
+              <select
+                className="rounded border-2 border-primary mb-5 bg-white text-primary text-center"
+                onChange={e => setLoanType(e.target.value)}
+              >
+                <option value="0">Interest-Only</option>
+                <option value="1">Immediate Repayment</option>
+              </select>
+            </div>
+          </Collapse>
+        </div>
 
         {/* LOAN AMOUNT INPUT */}
         <div className="flex flex-col justify-center items-center w-1/2 md:w-1/3">
-          <label className="text-xs text-center">Enter a loan amount:</label>
-          <input
-            type="number"
-            onChange={updateLoanAmount}
-            className="rounded border-2 border-primary p-3 mb-5 text-primary text-center text-2xl"
-            maxLength="6"
-            placeholder={placeholder}
-          />
+          <Collapse isOpened={!loanOptions}>
+            <label className="text-xs text-center">Enter a loan amount:</label>
+          </Collapse>
+          <Collapse isOpened={loanOptions}>
+            <label className="text-center">
+              Loan amount entered: {loanAmount}
+            </label>
+          </Collapse>
+          <Collapse isOpened={!loanOptions}>
+            <input
+              type="number"
+              onChange={updateLoanAmount}
+              className="rounded border-2 border-primary p-3 mb-5 text-primary text-center text-2xl"
+              maxLength="6"
+              placeholder={placeholder}
+            />
+          </Collapse>
         </div>
 
-        {minLoanAmt > loanAmount || loanAmount > loanInformation.maxLoanAmt ? (
-          <p className="text-red-500 text-xs">
+        <Collapse
+          isOpened={
+            minLoanAmt > loanAmount || loanAmount > loanInformation.maxLoanAmt
+          }
+        >
+          <p className="text-red-500 text-xs m-0 pb-4">
             Please enter a number between {minLoanAmt} and{" "}
             {loanInformation.maxLoanAmt}
           </p>
-        ) : (
+        </Collapse>
+        {!loanOptions ? (
           <button
-            className="opacityApply uppercase bg-primary p-3 mb-4 w-48 rounded-full shadow-lg text-white"
+            className="opacityApply uppercase bg-primary p-3 mb-4 lg:ml-4 w-48 rounded-full shadow-lg text-white"
             onClick={calculateMonthlyPayment}
           >
             Calculate payments
           </button>
+        ) : (
+          <button
+            className="opacityApply uppercase bg-black p-3 mb-4 lg:ml-4 w-48 rounded-full shadow-lg text-white"
+            onClick={calculateUpdatedAmount}
+          >
+            Update Amount
+          </button>
         )}
+
         <p className="m-0 text-center">
           Students may borrow from ${minLoanAmt} to $
           {loanInformation.maxLoanAmt}
@@ -282,7 +276,7 @@ const LoanCalculator = () => {
                   36-Month Fixed Rate Loan
                 </h4>
                 <p className="m-0 text-center">
-                  {interestRate36}% Interest Rate,{" "}
+                  {interestRates.ir36}% Interest Rate,{" "}
                   {loanInformation[loanType]["apr36"]}% APR*
                 </p>
                 {loanType === "0" && (
@@ -304,14 +298,9 @@ const LoanCalculator = () => {
                       <h4 className="border-primary border-b text-center font-normal mx-5 mb-3">
                         Interest-Only Period
                       </h4>
-                      {loanAmount >= minLoanAmt &&
-                      loanAmount <= loanInformation.maxLoanAmt ? (
-                        <p className="text-primary text-2xl mb-0">
-                          ${interestPayment.payment36}
-                        </p>
-                      ) : (
-                        <p className="text-primary text-2xl mb-0">--</p>
-                      )}
+                      <p className="text-primary text-2xl mb-0">
+                        ${interestPayment.payment36}
+                      </p>
                       <p className="text-xs">per month</p>
                     </div>
                   )}
@@ -319,14 +308,9 @@ const LoanCalculator = () => {
                     <h4 className="border-primary border-b text-center font-normal mx-5 mb-3">
                       Full Payment Period
                     </h4>
-                    {loanAmount >= minLoanAmt &&
-                    loanAmount <= loanInformation.maxLoanAmt ? (
-                      <p className="text-primary text-2xl mb-0">
-                        ${monthlyPayment.payment36}
-                      </p>
-                    ) : (
-                      <p className="text-primary text-2xl mb-0">--</p>
-                    )}
+                    <p className="text-primary text-2xl mb-0">
+                      ${monthlyPayment.payment36}
+                    </p>
                     <p className="text-xs">per month</p>
                   </div>
                 </div>
@@ -345,7 +329,7 @@ const LoanCalculator = () => {
                   60-Month Fixed Rate Loan
                 </h4>
                 <p className="m-0 text-center">
-                  {interestRate60}% Interest Rate,{" "}
+                  {interestRates.ir60}% Interest Rate,{" "}
                   {loanInformation[loanType]["apr60"]}% APR*
                 </p>
                 <p className="text-xs text-center lg:hidden">
@@ -359,14 +343,9 @@ const LoanCalculator = () => {
                       <h4 className="border-primary border-b text-center font-normal mx-5 mb-3">
                         Interest-Only Period
                       </h4>
-                      {loanAmount >= minLoanAmt &&
-                      loanAmount <= loanInformation.maxLoanAmt ? (
-                        <p className="text-primary text-2xl mb-0">
-                          ${interestPayment.payment60}
-                        </p>
-                      ) : (
-                        <p className="text-primary text-2xl mb-0">--</p>
-                      )}
+                      <p className="text-primary text-2xl mb-0">
+                        ${interestPayment.payment60}
+                      </p>
                       <p className="text-xs">per month</p>
                     </div>
                   )}
@@ -374,14 +353,9 @@ const LoanCalculator = () => {
                     <h4 className="border-primary border-b text-center font-normal mx-5 mb-3">
                       Full Payment Period
                     </h4>
-                    {loanAmount >= minLoanAmt &&
-                    loanAmount <= loanInformation.maxLoanAmt ? (
-                      <p className="text-primary text-2xl mb-0">
-                        ${monthlyPayment.payment60}
-                      </p>
-                    ) : (
-                      <p className="text-primary text-2xl mb-0">--</p>
-                    )}
+                    <p className="text-primary text-2xl mb-0">
+                      ${monthlyPayment.payment60}
+                    </p>
                     <p className="text-xs">per month</p>
                   </div>
                 </div>

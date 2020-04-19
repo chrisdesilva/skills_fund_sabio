@@ -11,27 +11,27 @@ const InterestOnlyTerms = props => (
                 <tbody>
                     <tr>
                         <th className="bg-primary text-center text-white w-1/3">Example on a {props.loanExampleAmt} loan</th>
-                        <th className="bg-primary text-center text-white w-1/3" colSpan={!props.multipleLoanLengths && "2"}>36 Month</th>
+                        <th className="bg-primary text-center text-white w-1/3" colSpan={props.multipleLoanLengths ? undefined : "2"}>36 Month</th>
                         {props.multipleLoanLengths && <th className="bg-primary text-center text-white w-1/3">60 Month</th>}
                     </tr>
                     <tr>
                         <td className="text-center">Annual Percentage Rate</td>
-                        <td className="text-center" colSpan={!props.multipleLoanLengths && "2"}>{props.APR36} (4)</td> 
+                        <td className="text-center" colSpan={props.multipleLoanLengths ? undefined : "2"}>{props.APR36} (4)</td> 
                         {props.multipleLoanLengths && <td className="text-center" >{props.APR60} (5)</td>} 
                     </tr>
                     <tr>
                         <td className="text-center bg-gray-100">Finance Charge (the dollar amount the credit will cost you)</td>
-                        <td className="text-center bg-gray-100" colSpan={!props.multipleLoanLengths && "2"}>{props.finCharge36} (4)</td> 
+                        <td className="text-center bg-gray-100" colSpan={props.multipleLoanLengths ? undefined : "2"}>{props.finCharge36} (4)</td> 
                         {props.multipleLoanLengths && <td className="text-center bg-gray-100">{props.finCharge60} (5)</td>} 
                     </tr>
                     <tr>
                         <td className="text-center">Interest-Only Monthly Payment</td>
-                        <td className="text-center" colSpan={!props.multipleLoanLengths && "2"}>{props.ioPayment36} (4)</td> 
+                        <td className="text-center" colSpan={props.multipleLoanLengths ? undefined : "2"}>{props.ioPayment36} (4)</td> 
                         {props.multipleLoanLengths && <td className="text-center">{props.ioPayment60} (5)</td> }
                     </tr>
                     <tr>
                         <td className="text-center bg-gray-100">Full Monthly (Principal and Interest) Payment</td>
-                        <td className="text-center bg-gray-100" colSpan={!props.multipleLoanLengths && "2"}>{props.fullPayment36} (4)</td> 
+                        <td className="text-center bg-gray-100" colSpan={props.multipleLoanLengths ? undefined : "2"}>{props.fullPayment36} (4)</td> 
                         {props.multipleLoanLengths && <td className="text-center bg-gray-100">{props.fullPayment60} (5)</td> }
                     </tr>
                 </tbody>
@@ -40,8 +40,8 @@ const InterestOnlyTerms = props => (
                 <li>(1) The 4.0% origination fee is assessed to all loans, and is added to the principal request, so for example, a {props.loanExampleAmt} will generate a {props.oFee} origination charge that will increase the loaned amount to {props.loanPlusOFee}.</li>
                 <li>(2) Interest rates are fixed and never vary.</li>
                 <li>(3) Program completion dates are determined by the school, and full repayment begins 2 months after that date.</li>
-                <li>(4) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan for {props.programLength} months while enrolled in the program and for a two-month grace period, then the 36-month principal and interest period.</li>
-                {props.multipleLoanLengths && <li>(5) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan for {props.programLength} months while enrolled in the program and for a two-month grace period, then the 60-month principal and interest period.</li>}
+                <li>(4) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan while enrolled in the program and for a two-month grace period, then the 36-month principal and interest period.</li>
+                {props.multipleLoanLengths && <li>(5) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan while enrolled in the program and for a two-month grace period, then the 60-month principal and interest period.</li>}
             </ul>
         </div> 
         
@@ -51,7 +51,7 @@ const InterestOnlyTerms = props => (
         {/* -----MOBILE VERSION START----- */}
 
         <div className="p-0 md:p-4 lg:hidden">
-            <p className="mt-16">This example shows the monthly payments of a {props.loanExampleAmt} <strong>interest-only</strong> Skills Fund loan{props.programName && <span> for <strong>{props.programName}</strong></span>}:</p>
+            <p>This example shows the monthly payments of a {props.loanExampleAmt} <strong>interest-only</strong> Skills Fund loan{props.programName && <span> for <strong>{props.programName}</strong></span>}:</p>
             <table>
                 <tbody>
                     <tr>
@@ -85,7 +85,7 @@ const InterestOnlyTerms = props => (
                         <td className="text-center">{props.fullPayment36} (4)</td> 
                     </tr>
                     {props.multipleLoanLengths && 
-                    <div>
+                    <>
                     <tr>
                         <th className="bg-primary text-center text-white">60 Month Loan</th>
                     </tr>
@@ -113,7 +113,7 @@ const InterestOnlyTerms = props => (
                     <tr>
                         <td className="text-center">{props.fullPayment60} (5)</td> 
                     </tr>
-                    </div>
+                    </>
                     }
                 </tbody>
             </table>
@@ -121,8 +121,8 @@ const InterestOnlyTerms = props => (
                 <li>(1) The 4.0% origination fee is assessed to all loans, and is added to the principal request, so for example, a {props.loanExampleAmt} will generate a {props.oFee} origination charge that will increase the loaned amount to {props.loanPlusOFee}.</li>
                 <li>(2) Interest rates are fixed and never vary.</li>
                 <li>(3) Program completion dates are determined by the school, and full repayment begins 2 months after that date.</li>
-                <li>(4) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan for {props.programLength} months while enrolled in the program and for a two-month grace period, then the 36-month principal and interest period.</li>
-                {props.multipleLoanLengths && <li>(5) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan for {props.programLength} months while enrolled in the program and for a two-month grace period, then the 60-month principal and interest period.</li>}
+                <li>(4) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan while enrolled in the program and for a two-month grace period, then the 36-month principal and interest period.</li>
+                {props.multipleLoanLengths && <li>(5) Annual Percentage Rate (APR): Finance charge and monthly payments are estimated based upon borrowing {props.loanExampleAmt}, a 4.0% origination fee, paying interest on the loan while enrolled in the program and for a two-month grace period, then the 60-month principal and interest period.</li>}
             </ul> 
         </div> 
 

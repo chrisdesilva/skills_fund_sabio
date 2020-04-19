@@ -1,4 +1,5 @@
 import React from 'react'
+import { paymentTable } from '../constants/programInfo'
 
 const LoanCalcPaymentTable = () => (
     <div className="flex flex-col items-center">
@@ -6,53 +7,38 @@ const LoanCalcPaymentTable = () => (
         <table className="hidden lg:inline">
             <tbody>
                 <tr>
-                    <th className="text-center">Program</th>
-                    <th className="text-center">Tuition</th>
-                    <th className="text-center">Cost of Living</th>
-                    <th className="text-center">Max Total</th>
+                    {paymentTable.headers.map((header, i) => <th key={i} className="text-center">{header}</th>)}
                 </tr>
-                <tr>
-                    <td className="text-center">Full Stack Web Development - <strong>Irvine</strong></td>
-                    <td className="text-center">$11,500</td>
-                    <td className="text-center">$6,000</td>
-                    <td className="text-center">$17,500</td>
-                </tr>
-                <tr>
-                    <td className="text-center">Full Stack Web Development - <strong>Culver City & Downtown LA</strong></td>
-                    <td className="text-center">$13,500</td>
-                    <td className="text-center">$6,000</td>
-                    <td className="text-center">$19,500</td>
-                </tr>
+                    {paymentTable.data.map(data => {
+                        return <tr key={data.name}>
+                            <td className="text-center">{data.name}</td>
+                            <td className="text-center">{data.tuition}</td>
+                            <td className="text-center">{data.col}</td>
+                            <td className="text-center">{data.max}</td>
+                        </tr>
+                    })}
             </tbody>
         </table>
 
         {/* MOBILE TABLE */}
         <table className="lg:hidden">
             <tbody>
-                <tr>
-                    <th className="text-center">Full-Stack Web Development - Irvine</th>
-                </tr>
-                <tr>
-                    <td className="text-center">Tuition: $11,500</td>
-                </tr>
-                <tr>
-                    <td className="text-center">Cost of Living: $6,000</td>
-                </tr>
-                <tr>
-                    <td className="text-center">Max Total: $17,500</td>
-                </tr>
-                <tr>
-                    <th className="text-center">Full-Stack Web Development - Culver City & Downtown LA</th>
-                </tr>
-                <tr>
-                    <td className="text-center">Tuition: $13,500</td>
-                </tr>
-                <tr>
-                    <td className="text-center">Cost of Living: $6,000</td>
-                </tr>
-                <tr>
-                    <td className="text-center">Max Total: $19,500</td>
-                </tr>
+                {paymentTable.data.map((program, i) => {
+                    return <React.Fragment key={i}>
+                        <tr>
+                            <th className="text-center bg-primary text-white rounded">{program.name}</th>
+                        </tr>
+                        <tr>
+                            <td className="text-center">Tuition: {program.tuition}</td>
+                        </tr>
+                        <tr>
+                            <td className="text-center">Cost of Living: {program.col}</td>
+                        </tr>
+                        <tr>
+                            <td className="text-center">Max Total: {program.max}</td>
+                        </tr>
+                    </React.Fragment>
+                })}
             </tbody>
         </table>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { schoolName } from '../constants/programInfo'
+ 
 const encode = (data) => {
     return Object.keys(data)
         .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -13,7 +14,7 @@ class ContactForm extends React.Component {
         email: "",
         identity: "",
         name: "",
-        school: "Sabio",
+        school: schoolName,
         other: "",
         otherDescription: "",
         thankyou: false,
