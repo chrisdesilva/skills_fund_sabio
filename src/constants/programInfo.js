@@ -174,7 +174,7 @@ export const schoolLogo = logo // go to header.js if height needs adjustment
 
 export const schoolName = "Sabio"
 
-export const schoolURL = "https://www.sabio.com/" // update with url of school's website
+export const schoolURL = "https://www.sabio.la/" // update with url of school's website
 
 export const skfURL = "https://sabio.skills.fund" // update with Skills Fund url
 
